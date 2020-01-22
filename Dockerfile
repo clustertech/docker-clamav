@@ -8,6 +8,8 @@ yum install -y clamd; \
 yum clean all; \
 sed -i 's/^Example/#Example/' /etc/clamd.d/scan.conf; \
 sed -i 's/^#LocalSocket \(.*\)/LocalSocket \1/' /etc/clamd.d/scan.conf; \
-sed -i 's/#NotifyClamd.*/NotifyClamd \/run\/clamd.scan\/clamd.sock/' /etc/freshclam.conf
+sed -i 's/#NotifyClamd.*/NotifyClamd \/run\/clamd.scan\/clamd.sock/' /etc/freshclam.conf; \
+groupadd -g 1000 mtagroup; \
+gpasswd -n clamscan mtagroup
 COPY . /
 ENTRYPOINT ["/tini", "/startclamav.sh"]
